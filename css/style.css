@@ -1,0 +1,26 @@
+
+*{
+    margin: 5px;
+    padding: 0%;
+}
+
+.parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.formcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media(max-width: 800px) {
+    .parent {
+        flex-direction: column;
+    }
+}
