@@ -19,6 +19,13 @@
     flex-direction: column;
 }
 
+#regForm{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 @media(max-width: 800px) {
     .parent {
         flex-direction: column;
