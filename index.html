@@ -21,12 +21,29 @@
             <input type="password" placeholder="Enter Password" name="psw" required>
 
             <button type="submit">Login</button>
-            <button type="submit">Register</button>
+            <button onclick="loadReg()" type="submit">Register</button>
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
         </div>
     </div>
+
+    <div class="reg-wrapper" id="regForm">
+        <h3>Register</h3>
+        <form class="light-border" id="add-user-form">
+          <input class="light-border"
+                 type="text"
+                 name="name"
+                 pattern=".{3,}"
+                 placeholder="Name"
+                 required>
+          <input class="light-border" type="email" name="username" placeholder="email" required>
+          <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
+                 placeholder="Password" required>
+          <button class="light-border" type="submit">Save</button>
+        </form>
+      </div>
+    <script src="main.js"></script>
 </body>
 
 </html>
