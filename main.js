@@ -3,24 +3,29 @@ const url = 'http://localhost:3000'; // change url when uploading to server
 
 
 // select existing html elements
-const regForm = document.querySelector('reg-wrapper');
-const body = document.querySelector('body');
+const regForm = document.getElementById('regForm');
+const mainPage = document.getElementById('mainPage');
+let body = document.querySelector('body');
 
 
 const loadReg = async () => {
-    console.log('regForm load ');
+    console.log('regForm load');
     try {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.innerHTML = "HELLO";
-            }
-        };
-        xhttp.open("GET", regForm, true);
-        xhttp.send();
+        mainPage.style.display = "none";
+        regForm.style.display = "flex";
 
+    } catch (e) {
+        console.log(e.message);
     }
-    catch (e) {
+};
+
+const goMain = async () => {
+    console.log('goMainPage');
+    try {
+        mainPage.style.display = "flex";
+        regForm.style.display = "none";
+
+    } catch (e) {
         console.log(e.message);
     }
 };

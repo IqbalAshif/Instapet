@@ -3,6 +3,11 @@
     margin: 5px;
     padding: 0%;
 }
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .parent{
     display: flex;
@@ -21,6 +26,12 @@
 
 #regForm{
     display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#add-user-form{
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;

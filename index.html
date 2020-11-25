@@ -9,10 +9,11 @@
 </head>
 
 <body>
-    <div class="parent">
-        <div class="logo">
-            <img src="css/logo.png" alt="logo">
-        </div>
+    <div class="logo">
+        <img src="css/logo.png" alt="logo">
+    </div>
+    <div class="parent" id = "mainPage">
+        
         <div class="formcontainer">
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required>
@@ -42,6 +43,7 @@
                  placeholder="Password" required>
           <button class="light-border" type="submit">Save</button>
         </form>
+        <button onclick="goMain()" class="light-border" type="submit">Login</button>
       </div>
     <script src="main.js"></script>
 </body>
