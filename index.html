@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 
 <body>
@@ -13,8 +13,7 @@
         <img src="css/logo.png" alt="logo">
     </div>
     <div class="parent" id = "mainPage">
-        
-        <div class="formcontainer">
+         <div class="formcontainer">
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required>
 
@@ -38,9 +37,9 @@
                  pattern=".{3,}"
                  placeholder="Name"
                  required>
-          <input class="light-border" type="email" name="username" placeholder="email" required>
           <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
-                 placeholder="Password" required>
+            placeholder="Password" required>
+          <input class="light-border" type="email" name="username" placeholder="email" required>
           <button class="light-border" type="submit">Save</button>
         </form>
         <button onclick="goMain()" class="light-border" type="submit">Login</button>
