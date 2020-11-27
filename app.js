@@ -6,9 +6,10 @@ const rootRoute = require('./routes/rootRoute.js');
 const userRoute = require('./routes/userRoute.js');
 const app = express();
 const port = 3000;
+
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 <<<<<<< HEAD
 app.use(bodyParser.urlencoded({extended: true}));
