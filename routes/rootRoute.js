@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+//root routes (example with get, post and put)
 const express = require('express');
 const router = express.Router();
 
