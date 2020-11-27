@@ -1,0 +1,39 @@
+CREATE TABLE `pet` (
+  `pet_id` int(11) NOT NULL,
+  `type` text NOT NULL,
+  `breed` text NOT NULL, 
+  `name` text NOT NULL,
+  `age` int(11) NOT NULL,
+  `weight` float NOT NULL,
+  `owner` int(11) NOT NULL,
+  `filename` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `pet` (`pet_id`, `type`, `breed`, `name`, `age`, `weight`, `owner`, `filename`) VALUES
+(1, 'cat', 'oriental', 'Frank', 6, 5, 1, 'http://placekitten.com/400/300'),
+(2, 'cat', 'oriental', 'James', 4, 11, 2, 'http://placekitten.com/400/302');
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `email` text NOT NULL,
+  `password` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `user` (`user_id`, `name`, `email`, `password`) VALUES
+(1, 'John Doe', 'john@metropolia.fi', '1234'),
+(2, 'Jane Doez', 'jane@metropolia.fi', 'qwer');
+
+
+ALTER TABLE `pet`
+  ADD PRIMARY KEY (`pet_id`);
+
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+
+ALTER TABLE `pet`
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;

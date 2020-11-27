@@ -2,47 +2,48 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 
 <body>
-  <div class="parent" id="mainPage">
-  <div class="logo">
-    <img src="css/logo.png" alt="logo">
-  </div>
+    <div class="parent">
+        <div class="logo">
+            <img src="css/logo.png" alt="logo">
+        </div>
+        <div class="formcontainer">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
 
-  <div class="loginformcontainer">
-    <form action="http://localhost:3000/:id" method="GET" class = "light-border" id="loginForm">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-    <button type="submit">Login</button>
-    <button  id="regButton">Registration</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-  </form>
-  </div>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
 
-  <div class="modal" id="myModal">
-    <div class="reg-wrapper" id="regForm">
-      <form action="http://localhost:3000/:id" method="POST" class="light-border" id="add-user-form">
-        <span class="close">&times;</span>
-        <h2>Registration</h2>
-        <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>
-        <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}" placeholder="Password"
-          required>
-        <input class="light-border" type="email" name="username" placeholder="email" required>
-        <button class="light-border" type="submit">Save</button>
-      </form>
+            <button type="submit">Login</button>
+            <button onclick="loadReg()" type="submit">Register</button>
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+        </div>
     </div>
-  </div>
-  </div>
-  <script src="main.js"></script>
+
+    <div class="reg-wrapper" id="regForm">
+        <h3>Register</h3>
+        <form class="light-border" id="add-user-form">
+          <input class="light-border"
+                 type="text"
+                 name="name"
+                 pattern=".{3,}"
+                 placeholder="Name"
+                 required>
+          <input class="light-border" type="email" name="username" placeholder="email" required>
+          <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
+                 placeholder="Password" required>
+          <button class="light-border" type="submit">Save</button>
+        </form>
+      </div>
+    <script src="main.js"></script>
 </body>
 
 </html>
