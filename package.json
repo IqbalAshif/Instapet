@@ -1,0 +1,28 @@
+{
+  "name": "instapet",
+  "version": "1.0.0",
+  "description": "Course Project",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.7.0",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IqbalAshif/Instapet.git"
+  },
+  "author": "Ashif And Georg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IqbalAshif/Instapet/issues"
+  },
+  "homepage": "https://github.com/IqbalAshif/Instapet#readme"
+}
