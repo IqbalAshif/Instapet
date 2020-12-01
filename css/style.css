@@ -17,6 +17,13 @@
     
 }
 
+.loginformcontainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 #loginForm{
     display: flex;
     justify-content: center;

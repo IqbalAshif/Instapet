@@ -15,22 +15,22 @@
   </div>
 
   <div class="loginformcontainer">
-    <form action="http://localhost:3000/:id" method="GET" class = "light-border" id="loginForm">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <form action="http://localhost:3000/user" method="GET" class = "light-border" id="loginForm">
+    <label for="uname"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
     <button type="submit">Login</button>
-    <button  id="regButton">Registration</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
   </form>
+  <button  id="regButton">Registration</button>
+  <label>
+    <input type="checkbox" checked="checked" name="remember"> Remember me
+  </label>
   </div>
 
   <div class="modal" id="myModal">
     <div class="reg-wrapper" id="regForm">
-      <form action="http://localhost:3000/:id" method="POST" class="light-border" id="add-user-form">
+      <form action="http://localhost:3000/user" method="POST" class="light-border" id="add-user-form">
         <span class="close">&times;</span>
         <h2>Registration</h2>
         <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>

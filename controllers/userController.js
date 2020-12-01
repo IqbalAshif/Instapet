@@ -23,6 +23,7 @@ const user_create = async (req, res) => {
   res.send(user);
 };
 
+
 module.exports = {
   user_list_get,
   user_get_by_id,
