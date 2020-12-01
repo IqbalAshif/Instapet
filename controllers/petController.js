@@ -1,5 +1,8 @@
 'use strict'
 const petModel = require('../models/petModel');
+const{validtionResult, validationResult} = require('express-validator');
+
+const pets = petModel.pets;
 
 const get_all_pet = async (req, res) => {
     const pets = await petModel.getAllPets();
@@ -12,6 +15,11 @@ const get_pet_by_id = async(req,res) => {
 }
 
 const pet_create = async (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        console.log('validation', errors.array());
+        return res.status(400).json({errors: errors.array()});
+    }
     const id = await petModel.addPet(req);
     const pet = await petModel.getPetById(id);
     res.send(pet);
