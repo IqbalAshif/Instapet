@@ -18,9 +18,9 @@ passport.use(
         return done(null, false, { message: 'Incorrect credentials.' });
       }
       // TODO: use bcrypt to check if passwords don't match
-      if (!bcrypt.compareSync(password, user.password)) {
+      if ((password != user.password)) {
         // passwords dont match
-        console.log('here');
+        console.log('Password Not Matching');
         return done(null, false);
       }
       return done(null, { ...user }, { message: 'Logged In Successfully' }); // use spread syntax to create shallow copy to get rid of binary row type

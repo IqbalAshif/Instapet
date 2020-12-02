@@ -2,6 +2,8 @@
 const url = 'http://localhost:3000'; // change url when uploading to server
 
 
+
+
 // select existing html elements
 const regForm = document.getElementById('regForm');
 const mainPage = document.getElementById('mainPage');
