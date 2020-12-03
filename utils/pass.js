@@ -19,7 +19,6 @@ passport.use(
       }
       // TODO: use bcrypt to check if passwords don't match
       if ((password != user.password)) {
-        // passwords dont match
         console.log('Password Not Matching');
         return done(null, false);
       }

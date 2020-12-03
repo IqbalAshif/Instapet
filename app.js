@@ -10,34 +10,12 @@ const petRoute = require('./routes/petRoute.js')
 const authRoute = require ('./routes/authRoute.js')
 const app = express();
 const port = 3000;
-const loggedIn = (req, res, next) => {
-    if (req.user) {
-      next();
-    } else {
-      res.redirect('/');
-    }
-  };
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(session({
-    secret:'keyboard cat',
-    resave:true,
-    saveUninitialized:true,
-    cookie: {maxAge:60*1000}
-}));
-
-app.post('/login',
-    passport.authenticate('local', {failureRedirect: '/'}),
-    (req, res) => {
-      console.log('success');
-      res.redirect('/user');
-    });
-
-app.get('/secret', loggedIn, (req, res) => {
-        res.render('secret');
-      });
 
 app.use(cors());
 app.use(bodyParser.json());
