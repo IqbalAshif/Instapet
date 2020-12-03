@@ -22,6 +22,7 @@ passport.use(
         console.log('Password Not Matching');
         return done(null, false);
       }
+      
       return done(null, { ...user }, { message: 'Logged In Successfully' }); // use spread syntax to create shallow copy to get rid of binary row type
     } catch (err) {
       return done(err);
@@ -33,6 +34,7 @@ passport.use(
 passport.use(
   new JWTStrategy(
     {
+
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       secretOrKey: 'your_jwt_secret',
     },
@@ -53,5 +55,17 @@ passport.use(
     }
   )
 );
+
+passport.serializeUser((user, done) => {
+  done(null, user.username);
+});
+
+passport.deserializeUser((username, done) => {
+  done(null, {username: username});
+}); 
+
+
+
+
 
 module.exports = passport;

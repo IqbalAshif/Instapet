@@ -4,7 +4,7 @@ const userRoute = require('../routes/userRoute')
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const bcrypt = require('bcryptjs')
-const {validationResult} = require('express-validator')
+const { validationResult } = require('express-validator')
 const userModel = require('../models/userModel')
 
 
@@ -19,8 +19,8 @@ const register = async (req, res) => {
   //const hashPswd = await bcrypt.hash(req.body.password, salt);
 
   const error = validationResult(req);
-  if(!error.isEmpty()){
-    return res.status(400).json({errors: errors.array()});
+  if (!error.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
   const id = await userModel.addUser(req);
   const user = await userModel.getUser(id);
@@ -35,7 +35,7 @@ const register = async (req, res) => {
 
 const login = (req, res, next) => {
   // TODO: add passport authenticate
-  console.log('auth', req.body);
+  console.log('auth',  req.body);
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err || !user) {
       return res.status(400).json({
@@ -44,24 +44,21 @@ const login = (req, res, next) => {
       });
     }
     req.login(user, { session: false }, (err) => {
+
       if (err) {
         res.send(err);
       }
-      
+
       // generate a signed son web token with the contents of user object and return it in the response
       const token = jwt.sign(user, 'your_jwt_secret');
-      res.header('auth-token', token).redirect('../user');;
-      return res.cookie('token', token, {
-        secure: false, // set to true if your using https
-        httpOnly: true,
-      });
-       
-    });
 
-    
+      return res.json({user,token});
+      //return res.header('authorization', 'Bearer ' + token).redirect('/user');
+    });
   })(req, res);
-  
 };
+
+
 
 
 
@@ -69,5 +66,6 @@ const login = (req, res, next) => {
 module.exports = {
   login,
   register,
-  
+ 
+
 };
