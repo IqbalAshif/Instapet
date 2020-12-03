@@ -1,2 +1,2 @@
 # Instapet
-Group project for Bsic Concepts of Web Technology
+Group project for Basic Concepts of Web Technology

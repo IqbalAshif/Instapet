@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('uploads'));
+app.use('/thumbnails', express.static('thumbnails'));
 
 //routes
 app.use('/', rootRoute);

@@ -54,9 +54,33 @@ const addUser = async (req) => {
   }
 };
 
+const updateUser = async (id, req) => {
+  try {
+    const [rows] = await promisePool.query('UPDATE wop_user SET name = ?, email = ?, passwd = ? WHERE user_id = ?;',
+        [req.body.name, req.body.username, req.body.passwd, id]);
+    console.log('userModel update:', rows);
+    return rows.affectedRows === 1;
+  } catch (e) {
+    return false;
+  }
+};
+
+const deleteUser = async (id) => {
+  try {
+    const rows = await promisePool.execute(
+      'DELETE FROM user WHERE user_id = ?', [id]);
+    return rows.affectedRows ===1;
+  }catch(e){
+      return false;
+  }
+};
+
+
 module.exports = {
   getAllUsers,
   getUser,
   getUserLogin,
   addUser,
+  updateUser,
+  deleteUser,
 };

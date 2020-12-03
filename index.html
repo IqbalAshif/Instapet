@@ -15,7 +15,7 @@
   </div>
 
   <div class="loginformcontainer">
-    <form action="http://localhost:3000/:id" method="GET" class = "light-border" id="loginForm">
+    <form action="http://localhost:3000/user" method="GET" class = "light-border" id="loginForm">
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="uname" required>
     <label for="psw"><b>Password</b></label>
@@ -30,7 +30,7 @@
 
   <div class="modal" id="myModal">
     <div class="reg-wrapper" id="regForm">
-      <form action="http://localhost:3000/:id" method="POST" class="light-border" id="add-user-form">
+      <form action="http://localhost:3000/user" method="POST" class="light-border" id="add-user-form">
         <span class="close">&times;</span>
         <h2>Registration</h2>
         <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>

@@ -27,8 +27,25 @@ const user_create = async (req, res) => {
   res.send(user);
 };
 
+const user_update = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log('validation', errors.array());
+    return res.status(400).json({errors: errors.array()});
+  }
+  const updateOk = await userModel.updateUser(req.params.id, req);
+  res.send(updateOk);
+};
+const user_delete = async (req, res) => {
+  const deleteOk = await userModel.deleteUser(req.params.id, req);
+  res.send(deleteOk);
+};
+
 module.exports = {
   user_list_get,
   user_get_by_id,
   user_create,
+  user_update,
+  user_delete,
+
 };

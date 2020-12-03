@@ -30,7 +30,7 @@ passport.use(
   })
 );
 
-// TODO: JWT strategy for handling bearer token
+// JWT strategy for handling bearer token
 passport.use(
   new JWTStrategy(
     {
