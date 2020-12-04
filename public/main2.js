@@ -215,7 +215,6 @@ loginForm.addEventListener('submit', async (evt) => {
     },
     body: JSON.stringify(data),
   };
-
   const response = await fetch(url + '/auth/login', fetchOptions);
   const json = await response.json();
   console.log('login response', json);

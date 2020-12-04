@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8">
+  <title>Example</title>
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <div class="forms" id="login-wrapper">
+    <div class="form-wrapper">
+      <h3>Login</h3>
+      <form id="login-form" class="light-border">
+        <div>
+          <label>Email:</label>
+          <input class="light-border" type="text" name="username"/>
+        </div>
+        <div>
+          <label>Password:</label>
+          <input class="light-border" type="password" name="password"/>
+        </div>
+        <div>
+          <button class="light-border" type="submit">Log In</button>
+        </div>
+      </form>
+    </div>
+    <div class="form-wrapper">
+      <h3>Register</h3>
+      <form class="light-border" id="add-user-form">
+        <input class="light-border"
+               type="text"
+               name="name"
+               pattern=".{3,}"
+               placeholder="Name"
+               required>
+        <input class="light-border" type="email" name="username" placeholder="email" required>
+        <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
+               placeholder="Password" required>
+        <button class="light-border" type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+  <header id="log-out" style="display: none;">
+    <p id="user-info"></p>
+    <button class="light-border">Log out</button>
+  </header>
+  <main style="display: none">
+    <h1>List of pets</h1>
+    <ul>
+      <!-- js creates list here -->
+    </ul>
+    <hr>
+    <div class="forms">
+
+      <div class="form-wrapper">
+        <h3>Add Pet</h3>
+        <form class="light-border"
+              enctype="multipart/form-data"
+              id="add-pet-form">
+          <input class="light-border" type="text" name="type" placeholder="Type" required>
+          <input class="light-border" type="text" name="breed" placeholder="Breed" required>
+          <input class="light-border" type="text" name="name" placeholder="Name" required>
+          <input class="light-border" type="number" name="age" placeholder="Age" required>
+          <input class="light-border"
+                 type="number"
+                 step="0.1"
+                 name="weight"
+                 placeholder="Weight"
+                 required>
+          <select class="light-border add-owner" name="owner" required>
+            <option value="">Select owner</option>
+          </select>
+          <input class="light-border"
+                 type="file"
+                 name="pet"
+                 accept="image/*"
+                 placeholder="Choose file">
+          <button class="light-border" type="submit">Upload</button>
+        </form>
+      </div>
+
+      <div class="form-wrapper">
+        <h3>Modify Pet</h3>
+        <form id="mod-pet-form" class="light-border">
+          <input class="light-border" type="text" name="type" placeholder="Type" required>
+          <input class="light-border" type="text" name="breed" placeholder="Breed" required>
+          <input class="light-border" type="text" name="name" placeholder="Name" required>
+          <input class="light-border" type="number" name="age" placeholder="Age" required>
+          <input class="light-border"
+                 type="number"
+                 step="0.1"
+                 name="weight"
+                 placeholder="Weight"
+                 required>
+          <select class="light-border add-owner" name="owner" required>
+            <option value="">Select owner</option>
+          </select>
+          <input type="hidden" name="id">
+          <button class="light-border" type="submit">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="hide modal" id="image-modal">
+  <a href="#" class="close">Close</a>
+  <img src="" alt="">
+  <div id="map"></div>
+</div>
+<script src="./serialize.js"></script>
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
+<script src="./js/mapbox.js"></script>
+<script src="./main2.js"></script>
+</body>
+</html>
