@@ -8,6 +8,9 @@
 </head>
 <body>
 <div class="container">
+  <div class="logo">
+    <img src="logo.png" alt="logo">
+  </div>
   <div class="forms" id="login-wrapper">
     <div class="form-wrapper">
       <h3>Login</h3>
@@ -54,11 +57,11 @@
     <div class="forms">
 
       <div class="form-wrapper">
-        <h3>Add Pet</h3>
+        <h3>Add Post</h3>
         <form class="light-border"
               enctype="multipart/form-data"
               id="add-pet-form">
-          <input class="light-border" type="text" name="type" placeholder="Type" required>
+          <input class="light-border" type="text" name="pet_type" placeholder="Type" required>
           <input class="light-border" type="text" name="breed" placeholder="Breed" required>
           <input class="light-border" type="text" name="name" placeholder="Name" required>
           <input class="light-border" type="number" name="age" placeholder="Age" required>
@@ -81,9 +84,9 @@
       </div>
 
       <div class="form-wrapper">
-        <h3>Modify Pet</h3>
+        <h3>Edit Post</h3>
         <form id="mod-pet-form" class="light-border">
-          <input class="light-border" type="text" name="type" placeholder="Type" required>
+          <input class="light-border" type="text" name="pet_type" placeholder="Type" required>
           <input class="light-border" type="text" name="breed" placeholder="Breed" required>
           <input class="light-border" type="text" name="name" placeholder="Name" required>
           <input class="light-border" type="number" name="age" placeholder="Age" required>
@@ -110,7 +113,7 @@
 </div>
 <script src="./serialize.js"></script>
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
-<script src="./js/mapbox.js"></script>
+<script src="./mapbox.js"></script>
 <script src="./main2.js"></script>
 </body>
 </html>

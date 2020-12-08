@@ -6,7 +6,7 @@ const getAllPets = async () => {
   try {
     const [
       rows,
-    ] = await promisePool.execute(`SELECT pet_id, type, breed, pet.name, age, weight, owner, filename, user_id, user.name AS
+    ] = await promisePool.execute(`SELECT pet_id, pet_type, breed, pet.name, age, weight, owner, filename, user_id, user.name AS
         ownername FROM pet LEFT JOIN user ON owner = user_id`);
 
     return rows;
@@ -30,15 +30,16 @@ const getPetById = async (id) => {
 const addPet = async (req) => {
   try {
     const rows = await promisePool.execute(
-      'INSERT INTO pet (type, breed, name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?, ?, ?); ',
+      'INSERT INTO pet (pet_type, breed, name, age, weight, owner, filename, coords) VALUES (?, ?, ?, ?, ?, ?, ?, ?); ',
       [
-        req.body.type,
+        req.body.pet_type,
         req.body.breed,
         req.body.name,
         req.body.age,
         req.body.weight,
         req.body.owner,
         req.body.filename,
+        req.body.coords,
       ]
     );
     return rows.insertId;
@@ -50,9 +51,9 @@ const addPet = async (req) => {
 const updatePet = async (req) => {
     try {
       const rows = await promisePool.execute(
-        'UPDATE pet SET type = ?, breed = ?, name = ?, age = ?, weight = ?, owner = ? WHERE pet_id = ?;',
+        'UPDATE pet SET pet_type = ?, breed = ?, name = ?, age = ?, weight = ?, owner = ? WHERE pet_id = ?;',
         [
-          req.body.type,
+          req.body.pet_type,
           req.body.breed,
           req.body.name,
           req.body.age,

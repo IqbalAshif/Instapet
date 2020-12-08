@@ -45,25 +45,22 @@ const createPetCards = (pets) => {
       const h2 = document.createElement('h2');
       h2.innerHTML = pet.name;
       const p1 = document.createElement('p');
-      p1.innerHTML = `Type: ${pet.type}`;
+      p1.innerHTML = `Type: ${pet.pet_type}`;
       const p2 = document.createElement('p');
       p2.innerHTML = `Breed: ${pet.breed}`;
-  
       const p3 = document.createElement('p');
       p3.innerHTML = `Age: ${pet.age}`;
-  
       const p4 = document.createElement('p');
       p4.innerHTML = `Weight: ${pet.weight}kg`;
-  
       const p5 = document.createElement('p');
-      p5.innerHTML = `Owner: ${pet.ownername}`;
-    
+      p5.innerHTML = `Owner: ${pet.ownername}`; 
+
        // add selected pet's values to modify form
     const modButton = document.createElement('button');
-    modButton.innerHTML = 'Modify';
+    modButton.innerHTML = 'Update';
     modButton.addEventListener('click', () => {
       const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = pet.type;
+      inputs[0].value = pet.pet_type;
       inputs[1].value = pet.breed;
       inputs[2].value = pet.name;
       inputs[3].value = pet.age;
@@ -83,7 +80,7 @@ const createPetCards = (pets) => {
         },
       };
       try {
-        const response = await fetch(url + '/pet/' + pet.pet_id, fetchOptions);
+        const response = await fetch(url + '/pet' + pet.pet_id, fetchOptions);
         const json = await response.json();
         console.log('delete response', json);
         getPetById();
@@ -102,7 +99,7 @@ const createPetCards = (pets) => {
     li.appendChild(p2);
     li.appendChild(p3);
     li.appendChild(p4);
-    li.appendChild(p4);
+    li.appendChild(p5);
     li.appendChild(modButton);
     li.appendChild(delButton);
     ul.appendChild(li);
@@ -118,7 +115,7 @@ close.addEventListener('click', (evt) => {
 // AJAX call
 
 const getPet = async () => {
-  console.log('getpet token ', sessionStorage.getItem('token'));
+ // console.log('getpet token ', sessionStorage.getItem('token'));
   try {
     const options = {
       headers: {

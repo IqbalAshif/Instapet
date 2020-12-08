@@ -4,7 +4,11 @@ body {
     font-family: Verdana;
     background-color: lightblue;
   }
-  
+  .logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
   .container {
     max-width: 40em;
     margin: auto;
@@ -42,11 +46,12 @@ body {
   
   .forms {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
   }
   
   .form-wrapper {
-    width: 33%;
+    width: 100%;
   }
   
   input, button, select {

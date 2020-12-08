@@ -14,7 +14,6 @@ router.post('/register',
       matches('(?=.*[A-Z]).{8,}'),
     ],
     authController.user_create_post,
-    authController.login,
 );
 
 module.exports = router;
