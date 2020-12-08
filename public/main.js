@@ -10,44 +10,65 @@ const url = 'http://localhost:3000'; // change url when uploading to server
 
 // select existing html elements
 
-const body = document.querySelector('body');
+//const body = document.querySelector('body');
 const mainPage = document.querySelector('#main-page');
 const feed = document.querySelector('#feed');
 const imageModal = document.querySelector('#image-modal');
 const regForm = document.querySelector('#add-user-form');
 const regBtn = document.querySelector("#regButton");
 const browseBtn = document.querySelector("#browseButton");
-const modal = document.querySelector("#myModal");
+const regModal = document.querySelector("#myModal");
 const span = document.getElementsByClassName("close")[0];
 const loginForm = document.querySelector('#login-form');
 const userInfo = document.querySelector('#user-info');
 const logOutBtn = document.querySelector('#log-out');
+const myProfileBtn = document.querySelector('#user-profile');
+const userProfile = document.querySelector('#user-page');
+const petForm = document.querySelector('#add-pet-form');
+const addPetBtn = document.querySelector('#add-pet');
+const petFormModal = document.querySelector('#petModal');
 const ul = document.querySelector('ul');
+
 
 // When the user clicks on the button, open the modal
 regBtn.onclick = function () {
-  modal.style.display = "flex";
+  regModal.style.display = "flex";
 }
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  regModal.style.display = "none";
+  petFormModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == regModal || event.target == petFormModal) {
+    regModal.style.display = "none";
+    petFormModal.style.display = "none";
+  }
+}
+
+
+
 
 browseBtn.onclick = () => {
   getFeedPage();
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+addPetBtn.onclick = () => {
+  petFormModal.style.display = "flex";
 }
 
 
 const getLoginPage = async () => {
   mainPage.style.display = 'flex';
+  feed.style.display = 'none';
+}
+
+const getProfilePage = async () => {
+  userProfile.style.display = 'flex';
   feed.style.display = 'none';
 }
 
@@ -103,7 +124,26 @@ loginForm.addEventListener('submit', async (evt) => {
   }
 });
 
-
+//My Profile
+myProfileBtn.addEventListener('click', async (evt) => {
+  evt.preventDefault();
+  
+    try {
+      const options = {
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+      };
+      const response = await fetch(url + '/user', options);
+      const json = await response.json();
+      console.log(json);
+      getProfilePage();
+    }
+    catch (e) {
+      console.log(e.message);
+    }
+  
+});
 
 //logout
 logOutBtn.addEventListener('click', async (evt) => {
@@ -185,6 +225,24 @@ const getPets = async () => {
     console.log(e.message);
   }
 };
+
+
+//Add Pet Form
+petForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const fd = new FormData(petForm);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: fd,
+  };
+  const response = await fetch(url + '/pet', fetchOptions);
+  const json = await response.json();
+  console.log('add pet response', json);
+  //getPet();
+});
 
 
 const getUsers = async () => {

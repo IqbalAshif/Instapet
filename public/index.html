@@ -53,6 +53,7 @@
   <div class="parent" id="feed" style="display: none;">
     <div id="header">
       <p id="user-info"> </p>
+      <button id = "user-profile">My Profile</button>
       <button id = "log-out" class="light-border">Log out</button>
     </div>
 
@@ -68,6 +69,45 @@
       <img src="" alt="">
       <div id="map"></div>
     </div>
+  </div>
+
+  <div class="parent" id="user-page" style="display: none;">
+    <div id="header">
+      <p id="user-info"> </p>
+      <button id = "feed">My Feed</button>
+      <button id = "log-out" class="light-border">Log out</button>
+    </div>
+
+    <div class="modal" id="petModal">
+      <div class="pet-form-wrapper" id="pet-form">
+        <form class="light-border" id="add-pet-form" enctype="multipart/form-data" novalidate>
+          <span class="close">&times;</span>
+          <h2>Add Pet</h2>
+          <input class="light-border" type="text" name="pet_type" placeholder="Type" required>
+          <input class="light-border" type="text" name="breed" placeholder="Breed" required>
+          <input class="light-border" type="text" name="name" placeholder="Name" required>
+          <input class="light-border" type="number" name="age" placeholder="Age" required>
+          <input class="light-border"
+                 type="number"
+                 step="0.1"
+                 name="weight"
+                 placeholder="Weight"
+                 required>
+
+          <input type="number" name="owner" placeholder="OwnerID">
+          
+          <input class="light-border"
+                 type="file"
+                 name="petImg"
+                 accept="image/*"
+                 placeholder="Choose file">
+
+          <button class="light-border" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <button id = "add-pet">Add Pet</button>
+
   </div>
   <script src="main.js"></script>
   <script src="serialize.js"></script>

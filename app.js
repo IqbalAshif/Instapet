@@ -20,7 +20,7 @@ app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
-
+app.use('/thumbnails', express.static('thumbnails'));
 
 
 
@@ -30,3 +30,4 @@ app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
 app.use('/', rootRoute);
 app.use('/pet', petRoute);
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+

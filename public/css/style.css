@@ -77,6 +77,17 @@ button{
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
+#add-pet-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+background-color: #fefefe;
+padding: 15px;
+border: 1px solid #888;
+width: 80%; /* Could be more or less, depending on screen size */
+}
+
 #header{
   width: 100%;
   display: flex;

@@ -20,7 +20,9 @@ const pet_create = async (req, res) => {
         console.log('validation', errors.array());
         return res.status(400).json({errors: errors.array()});
     }
+    
     const id = await petModel.addPet(req);
+    console.log("petreq:",id);
     const pet = await petModel.getPetById(id);
     res.send(pet);
 }
@@ -35,6 +37,18 @@ const pet_delete = async(req, res) =>  {
     res.json(deleteOk);
 }
 
+const make_thumbnail = async (req, res, next) => {
+    try {
+      const ready = await makeThumbnail({width: 160, height: 160}, req.file.path,
+          './thumbnails/' + req.file.filename);
+      if (ready) {
+        console.log('make_thumbnail', ready);
+        next();
+      }
+    } catch (e) {
+      next();
+    }
+  };
 
 module.exports = {
     get_all_pet,
@@ -42,5 +56,6 @@ module.exports = {
     pet_create,
     pet_update,
     pet_delete,
+    make_thumbnail
 
 }

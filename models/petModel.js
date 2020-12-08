@@ -1,4 +1,5 @@
 'use strict';
+const { ExtractJwt } = require('passport-jwt');
 const pool = require('../database/db');
 const promisePool = pool.promise();
 
@@ -29,6 +30,7 @@ const getPetById = async (id) => {
 
 const addPet = async (req) => {
   try {
+    
     const rows = await promisePool.execute(
       'INSERT INTO pet (type, breed, name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?, ?, ?); ',
       [
@@ -38,11 +40,14 @@ const addPet = async (req) => {
         req.body.age,
         req.body.weight,
         req.body.owner,
-        req.body.filename,
+        req.file.filename,
       ]
+      
     );
+    console.log("DATABASE CHECK",rows);
     return rows.insertId;
   }catch(e){
+    console.log(req.body);
       return 0;
   }
 };
