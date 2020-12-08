@@ -25,6 +25,7 @@ const injectFile = (req, res, next) => {
   
 
 router.get('/', petController.get_all_pet);
+
 router.post('/',
 upload.single('pet'), 
 petController.make_thumbnail,

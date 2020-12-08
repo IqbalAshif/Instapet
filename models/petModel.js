@@ -30,7 +30,7 @@ const getPetById = async (id) => {
 const addPet = async (req) => {
   try {
     const rows = await promisePool.execute(
-      'INSERT INTO pet (pet_type, breed, name, age, weight, owner, filename, coords) VALUES (?, ?, ?, ?, ?, ?, ?, ?); ',
+      'INSERT INTO pet (pet_type, breed, name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?, ?, ?); ',
       [
         req.body.pet_type,
         req.body.breed,
@@ -38,8 +38,8 @@ const addPet = async (req) => {
         req.body.age,
         req.body.weight,
         req.body.owner,
-        req.body.filename,
-        req.body.coords,
+        req.file.filename,
+       // req.body.coords,
       ]
     );
     return rows.insertId;
@@ -64,6 +64,7 @@ const updatePet = async (req) => {
       );
       return rows.affectedRows ===1;
     }catch(e){
+      console.log(rows);
         return false;
     }
   };

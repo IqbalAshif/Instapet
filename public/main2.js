@@ -80,10 +80,10 @@ const createPetCards = (pets) => {
         },
       };
       try {
-        const response = await fetch(url + '/pet' + pet.pet_id, fetchOptions);
+        const response = await fetch(url + '/pet/' + pet.pet_id, fetchOptions);
         const json = await response.json();
         console.log('delete response', json);
-        getPetById();
+        getPet();
       }
       catch (e) {
         console.log(e.message());
