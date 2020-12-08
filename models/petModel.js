@@ -6,7 +6,7 @@ const getAllPets = async () => {
   try {
     const [
       rows,
-    ] = await promisePool.execute(`SELECT pet_id, type, breed, pet.name, age, weight, owner, filename, user_id, user.name AS
+    ] = await promisePool.execute(`SELECT pet_id, pet_type, breed, pet.name, age, weight, owner, filename, user_id, user.name AS
         ownername FROM pet LEFT JOIN user ON owner = user_id`);
 
     return rows;

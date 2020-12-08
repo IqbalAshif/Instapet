@@ -1,38 +1,212 @@
 'use strict';
+
+
+
+
 const url = 'http://localhost:3000'; // change url when uploading to server
 
 
 
 
 // select existing html elements
-const regForm = document.getElementById('regForm');
-const mainPage = document.getElementById('mainPage');
-let body = document.querySelector('body');
-// Get the modal
-var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("regButton");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+const body = document.querySelector('body');
+const mainPage = document.querySelector('#main-page');
+const feed = document.querySelector('#feed');
+const imageModal = document.querySelector('#image-modal');
+const regForm = document.querySelector('#add-user-form');
+const regBtn = document.querySelector("#regButton");
+const browseBtn = document.querySelector("#browseButton");
+const modal = document.querySelector("#myModal");
+const span = document.getElementsByClassName("close")[0];
+const loginForm = document.querySelector('#login-form');
+const userInfo = document.querySelector('#user-info');
+const logOutBtn = document.querySelector('#log-out');
+const ul = document.querySelector('ul');
 
 // When the user clicks on the button, open the modal
-btn.onclick = function() {
+regBtn.onclick = function () {
   modal.style.display = "flex";
 }
 
+browseBtn.onclick = () => {
+  getFeedPage();
+}
+
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+span.onclick = function () {
   modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-} 
+}
+
+
+const getLoginPage = async () => {
+  mainPage.style.display = 'flex';
+  feed.style.display = 'none';
+}
+
+const getFeedPage = async () => {
+  mainPage.style.display = 'none';
+  feed.style.display = 'flex'
+
+
+  getPets();
+}
+
+
+
+//register
+regForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const data = serializeJson(regForm);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+  const response = await fetch(url + '/auth/register', fetchOptions);
+  const json = await response.json();
+  console.log('user add response', json);
+  sessionStorage.setItem('token', json.token);
+});
+
+// login
+loginForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const data = serializeJson(loginForm);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  };
+  const response = await fetch(url + '/auth/login', fetchOptions);
+  const json = await response.json();
+  console.log('login response', json);
+  if (!json.user) {
+    alert(json.message);
+  } else {
+    sessionStorage.setItem('token', json.token);
+    getFeedPage();
+    userInfo.innerHTML = `${json.user.name}`;
+
+
+  }
+});
+
+
+
+//logout
+logOutBtn.addEventListener('click', async (evt) => {
+  evt.preventDefault();
+  
+    try {
+      const options = {
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+      };
+      const response = await fetch(url + '/auth/logout', options);
+      const json = await response.json();
+      console.log(json);
+      sessionStorage.removeItem('token');
+      alert('You have logged out');
+      getLoginPage();
+    }
+    catch (e) {
+      console.log(e.message);
+    }
+  
+});
+
+
+
+
+
+
+const createPetCards = (pets) => {
+  // clear ul
+  ul.innerHTML = '';
+  pets.forEach((pet) => {
+    // create li with DOM methods
+    const img = document.createElement('img');
+    img.src = url + '/thumbnails/' + pet.filename;
+    img.alt = pet.name;
+    img.classList.add('resp');
+
+    // open large image when clicking image
+    img.addEventListener('click', () => {
+      modalImage.src = url + '/' + pet.filename;
+      imageModal.alt = pet.name;
+      imageModal.classList.toggle('hide');
+      try {
+        const coords = JSON.parse(pet.coords);
+        // console.log(coords);
+        addMarker(coords);
+      }
+      catch (e) {
+      }
+    });
+
+
+    const h2 = document.createElement('h2');
+    h2.innerHTML = `${pet.pet_type} ${pet.name}`;
+    const figure = document.createElement('figure').appendChild(img);
+    const p1 = document.createElement('p');
+    p1.innerHTML = `Owner: ${pet.ownername}`;
+
+    const li = document.createElement('li');
+
+    li.appendChild(h2);
+    li.appendChild(figure);
+    li.appendChild(p1);
+    ul.appendChild(li);
+  });
+};
+
+
+const getPets = async () => {
+  try {
+    const response = await fetch(url + '/pet');
+    const pets = await response.json();
+    createPetCards(pets);
+    console.log('my pets:', pets);
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
+
+
+const getUsers = async () => {
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/user', options);
+    const users = await response.json();
+    return users;
+
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
+
+
+
+
 
 
 

@@ -5,44 +5,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-  <div class="parent" id="mainPage">
-  <div class="logo">
-    <img src="css/logo.png" alt="logo">
-  </div>
+  <div class="parent" id="main-page">
+    <div class="logo">
+      <img src="css/logo.png" alt="logo">
+    </div>
 
-  <div class="loginformcontainer">
-    <form action="http://localhost:3000/auth/login" method="POST" class = "light-border" id="loginForm" novalidate>
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="username" required>
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
-    <button type="submit">Login</button>
-  </form>
-  <button  id="regButton">Registration</button>
-  <label>
-    <input type="checkbox" checked="checked" name="remember"> Remember me
-  </label>
-  </div>
+    <div class="loginformcontainer" id="login-wraper">
 
-  <div class="modal" id="myModal">
-    <div class="reg-wrapper" id="regForm">
-      <form action="http://localhost:3000/auth/register" method="POST" class="light-border" id="add-user-form" novalidate>
-        <span class="close">&times;</span>
-        <h2>Registration</h2>
-        <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>
-        <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}" placeholder="Password"
-          required>
-        <input class="light-border" type="email" name="username" placeholder="email" required>
-        <button class="light-border" type="submit">Save</button>
+      <form id="login-form" class="light-border" novalidate>
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="username" required>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+        <button type="submit">Login</button>
       </form>
+
+
+
+      <button id="regButton">Registration</button>
+      <button id="browseButton">Browse Pets</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+    <div class="modal" id="myModal">
+      <div class="reg-wrapper" id="reg-form">
+        <form class="light-border" id="add-user-form" novalidate>
+          <span class="close">&times;</span>
+          <h2>Registration</h2>
+          <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>
+          <input class="light-border" type="email" name="username" placeholder="email" required>
+          <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}" placeholder="Password"
+            required>
+
+          <button class="light-border" type="submit">Save</button>
+        </form>
+      </div>
     </div>
   </div>
+  
+  <div class="parent" id="feed" style="display: none;">
+    <div id="header">
+      <p id="user-info"> </p>
+      <button id = "log-out" class="light-border">Log out</button>
+    </div>
+
+    <div id="fetched-pets">
+      <h1>List of pets</h1>
+      <hr>
+      <ul>
+      <!-- js creates pet gallery list here -->
+      </ul>
+    </div>
+
+    <div class="hide modal" id="image-modal">
+      <img src="" alt="">
+      <div id="map"></div>
+    </div>
   </div>
   <script src="main.js"></script>
+  <script src="serialize.js"></script>
 </body>
 
 </html>

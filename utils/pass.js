@@ -18,8 +18,8 @@ passport.use(
         return done(null, false, { message: 'Incorrect credentials.' });
       }
       // TODO: use bcrypt to check if passwords don't match
-      if ((password != user.password)) {
-        console.log('Password Not Matching');
+      if (!bcrypt.compareSync(password, user.password)) {
+        console.log('Password Not Matching', password,'AND', user.password);
         return done(null, false);
       }
       
@@ -32,13 +32,15 @@ passport.use(
 
 // TODO: JWT strategy for handling bearer token
 passport.use(
+
   new JWTStrategy(
     {
-
+      
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       secretOrKey: 'your_jwt_secret',
     },
     async (jwtPayload, done) => {
+      console.log('passJWT', jwtPayload);
       try {
         console.log('util pass JWT', jwtPayload);
         if (jwtPayload === undefined) {

@@ -3,6 +3,24 @@
     margin: 5px;
     padding: 0%;
 }
+
+button{
+  background-color: #000000; 
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  color: white;
+}
+
 .logo{
     display: flex;
     align-items: center;
@@ -11,6 +29,7 @@
 
 .parent{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -24,7 +43,7 @@
   flex-direction: column;
 }
 
-#loginForm{
+#login-form{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,6 +75,19 @@
   padding: 15px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+}
+
+#header{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  flex-direction: row;
+  background-color: rgb(128, 0, 79);
+}
+
+#fetched-pets{
+  display:inline;
+
 }
 
 
