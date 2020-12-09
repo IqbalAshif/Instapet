@@ -15,19 +15,6 @@ const get_pet_by_id = async(req,res) => {
     const pet  = await petModel.getPetById(req.params.id);
     res.json(pet);
 }
-
-const make_thumbnail = async (req, res, next) => {
-    try {
-      const ready = await makeThumbnail({width: 160, height: 160}, req.file.path,
-          './thumbnails/' + req.file.filename);
-      if (ready) {
-        console.log('make_thumbnail', ready);
-        next();
-      }
-    } catch (e) {
-      next();
-    }
-  };
   
 
 const pet_create = async (req, res) => {
@@ -46,6 +33,19 @@ const pet_create = async (req, res) => {
     res.send(pet);
 }
 
+const make_thumbnail = async (req, res, next) => {
+    try {
+      const ready = await makeThumbnail({width: 160, height: 160}, req.file.path,
+          './thumbnails/' + req.file.filename);
+      if (ready) {
+        console.log('make_thumbnail', ready);
+        next();
+      }
+    } catch (e) {
+      next();
+    }
+  };
+  
 const pet_update = async(req, res) => {
     const updateOk = await petModel.updatePet(req);
     res.json(updateOk);
