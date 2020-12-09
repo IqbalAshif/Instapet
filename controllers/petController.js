@@ -1,6 +1,6 @@
 'use strict'
 const petModel = require('../models/petModel');
-const{validtionResult, validationResult} = require('express-validator');
+const{validationResult} = require('express-validator');
 const {makeThumbnail} = require('../utils/resize');
 const {getCoordinates} = require('../utils/imageMeta');
 
