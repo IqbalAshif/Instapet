@@ -10,7 +10,7 @@ const url = 'http://localhost:3000'; // change url when uploading to server
 
 // select existing html elements
 
-//const body = document.querySelector('body');
+
 const mainPage = document.querySelector('#main-page');
 const feed = document.querySelector('#feed');
 const imageModal = document.querySelector('#image-modal');
@@ -18,16 +18,18 @@ const regForm = document.querySelector('#add-user-form');
 const regBtn = document.querySelector("#regButton");
 const browseBtn = document.querySelector("#browseButton");
 const regModal = document.querySelector("#myModal");
-const span = document.getElementsByClassName("close")[0];
+const span = document.getElementsByClassName("close");
 const loginForm = document.querySelector('#login-form');
-const userInfo = document.querySelector('#user-info');
-const logOutBtn = document.querySelector('#log-out');
+const userInfo = document.querySelector('.logged-user-name');
+const logOutBtn = document.querySelector('.log-out-button');
 const myProfileBtn = document.querySelector('#user-profile');
+const signUpBtn = document.querySelector('#sign-up')
+const myFeedBtn = document.querySelector('#feed-button')
 const userProfile = document.querySelector('#user-page');
 const petForm = document.querySelector('#add-pet-form');
 const addPetBtn = document.querySelector('#add-pet');
 const petFormModal = document.querySelector('#petModal');
-const ul = document.querySelector('ul');
+const petWraper = document.querySelector('#pet-wraper');
 
 
 // When the user clicks on the button, open the modal
@@ -51,11 +53,11 @@ window.onclick = function (event) {
 }
 
 
-
-
-browseBtn.onclick = () => {
+myFeedBtn.onclick = () =>{
   getFeedPage();
 }
+
+
 
 addPetBtn.onclick = () => {
   petFormModal.style.display = "flex";
@@ -72,11 +74,36 @@ const getProfilePage = async () => {
   feed.style.display = 'none';
 }
 
+const authorizedHeader = async (username) => {
+  logOutBtn.style.display ='block';
+  signUpBtn.style.display = 'none';
+  userInfo.innerHTML = `${username}`;
+
+}
+
 const getFeedPage = async () => {
   mainPage.style.display = 'none';
+  userProfile.style.display = 'none';
   feed.style.display = 'flex'
-
-
+  if(sessionStorage.getItem('token') == null){
+    logOutBtn.style.display = 'none';
+    myProfileBtn.style.display ='none';
+    signUpBtn.style.display = 'block';
+  }else{
+    
+    const options = {
+      method:'GET',
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/user/1', options); //FETCH FROM USER ID
+    const json = await response.json();
+    myProfileBtn.style.display ='block'
+    authorizedHeader(json.name);
+  }
+  
+  
   getPets();
 }
 
@@ -118,11 +145,20 @@ loginForm.addEventListener('submit', async (evt) => {
   } else {
     sessionStorage.setItem('token', json.token);
     getFeedPage();
-    userInfo.innerHTML = `${json.user.name}`;
 
 
   }
 });
+
+//Browse
+browseBtn.addEventListener('click', async (evt) =>{
+evt.preventDefault();
+sessionStorage.removeItem('token');
+getFeedPage();
+
+});
+
+
 
 //My Profile
 myProfileBtn.addEventListener('click', async (evt) => {
@@ -134,10 +170,11 @@ myProfileBtn.addEventListener('click', async (evt) => {
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
         },
       };
-      const response = await fetch(url + '/user', options);
+      const response = await fetch(url + '/user/1', options);
       const json = await response.json();
       console.log(json);
       getProfilePage();
+      authorizedHeader(json.name);
     }
     catch (e) {
       console.log(e.message);
@@ -169,15 +206,20 @@ logOutBtn.addEventListener('click', async (evt) => {
 });
 
 
+signUpBtn.addEventListener('click', async(evt)=>{
+  evt.preventDefault();
+  getLoginPage();
+})
 
 
 
 
 const createPetCards = (pets) => {
-  // clear ul
-  ul.innerHTML = '';
+  // clear wraper
+  petWraper.innerHTML = '';
   pets.forEach((pet) => {
-    // create li with DOM methods
+    // create div with DOM methods
+    const parent = document.createElement('div');
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + pet.filename;
     img.alt = pet.name;
@@ -185,7 +227,7 @@ const createPetCards = (pets) => {
 
     // open large image when clicking image
     img.addEventListener('click', () => {
-      modalImage.src = url + '/' + pet.filename;
+      imageModal.src = url + '/' + pet.filename;
       imageModal.alt = pet.name;
       imageModal.classList.toggle('hide');
       try {
@@ -199,17 +241,16 @@ const createPetCards = (pets) => {
 
 
     const h2 = document.createElement('h2');
-    h2.innerHTML = `${pet.pet_type} ${pet.name}`;
+    h2.innerHTML = `${pet.name}`;
     const figure = document.createElement('figure').appendChild(img);
     const p1 = document.createElement('p');
     p1.innerHTML = `Owner: ${pet.ownername}`;
 
-    const li = document.createElement('li');
-
-    li.appendChild(h2);
-    li.appendChild(figure);
-    li.appendChild(p1);
-    ul.appendChild(li);
+  
+    parent.appendChild(h2);
+    parent.appendChild(figure);
+    parent.appendChild(p1);
+    petWraper.appendChild(parent);
   });
 };
 

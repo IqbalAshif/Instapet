@@ -44,25 +44,26 @@
           <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}" placeholder="Password"
             required>
 
-          <button class="light-border" type="submit">Save</button>
+          <button class="light-border" type="submit">Register</button>
         </form>
       </div>
     </div>
   </div>
-  
+
   <div class="parent" id="feed" style="display: none;">
     <div id="header">
-      <p id="user-info"> </p>
-      <button id = "user-profile">My Profile</button>
-      <button id = "log-out" class="light-border">Log out</button>
+      <p class="logged-user-name"> </p>
+      <button id="user-profile" >My Pets</button>
+      <button class = "log-out-button" id="log-out" >Log out</button>
+      <button id="sign-up" >Sign Up</button>
     </div>
 
     <div id="fetched-pets">
-      <h1>List of pets</h1>
+      <h1>Welcome to the PetWorld!</h1>
       <hr>
-      <ul>
-      <!-- js creates pet gallery list here -->
-      </ul>
+      <div id="pet-wraper">
+        <!-- js creates pet gallery here -->
+      </div>
     </div>
 
     <div class="hide modal" id="image-modal">
@@ -73,40 +74,43 @@
 
   <div class="parent" id="user-page" style="display: none;">
     <div id="header">
-      <p id="user-info"> </p>
-      <button id = "feed">My Feed</button>
-      <button id = "log-out" class="light-border">Log out</button>
+      <p class="logged-user-name"> </p>
+      <button id="feed-button">My Feed</button>
+      <button class="log-out-button" id="log-out">Log out</button>
     </div>
 
     <div class="modal" id="petModal">
-      <div class="pet-form-wrapper" id="pet-form">
+      
         <form class="light-border" id="add-pet-form" enctype="multipart/form-data" novalidate>
           <span class="close">&times;</span>
           <h2>Add Pet</h2>
-          <input class="light-border" type="text" name="pet_type" placeholder="Type" required>
-          <input class="light-border" type="text" name="breed" placeholder="Breed" required>
-          <input class="light-border" type="text" name="name" placeholder="Name" required>
-          <input class="light-border" type="number" name="age" placeholder="Age" required>
-          <input class="light-border"
-                 type="number"
-                 step="0.1"
-                 name="weight"
-                 placeholder="Weight"
-                 required>
 
-          <input type="number" name="owner" placeholder="OwnerID">
-          
-          <input class="light-border"
-                 type="file"
-                 name="petImg"
-                 accept="image/*"
-                 placeholder="Choose file">
+          <div id = "pet-form-container">
+            <div id="profile-pic" class = "formContent">
+              <label for="petImageLable">
+                <input type="file" name="petImg" accept="image/*" style="display:none;" />
+                <img src="css/add_pet.svg" />
+              </label>
+            </div>
+            <div id="pet-form-content" class = "formContent">
+              <input class="light-border" type="text" name="pet_type" placeholder="Type" required>
+              <input class="light-border" type="text" name="breed" placeholder="Breed" required>
+              <input class="light-border" type="text" name="name" placeholder="Name" required>
+              <input class="light-border" type="number" name="age" placeholder="Age" required>
+              <input class="light-border" type="number" step="0.1" name="weight" placeholder="Weight" required>
+              <input type="number" name="owner" placeholder="OwnerID">
+            </div>
+
+            
+          </div>
+
+
 
           <button class="light-border" type="submit">Save</button>
         </form>
-      </div>
+      
     </div>
-    <button id = "add-pet">Add Pet</button>
+    <button id="add-pet">Add Pet</button>
 
   </div>
   <script src="main.js"></script>

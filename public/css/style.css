@@ -54,7 +54,6 @@ button{
     display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
@@ -77,6 +76,8 @@ button{
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
+
+
 #add-pet-form{
   display: flex;
   justify-content: center;
@@ -88,6 +89,32 @@ border: 1px solid #888;
 width: 80%; /* Could be more or less, depending on screen size */
 }
 
+#pet-form-container{
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  }
+
+  .formContent{
+    flex:1;
+    
+    
+  }
+
+#pet-form-content{
+background-color: green;
+flex-direction: column;
+
+  
+ 
+}
+#profile-pic{
+  background-color: blue;
+  
+
+}
+
+
 #header{
   width: 100%;
   display: flex;
@@ -96,8 +123,9 @@ width: 80%; /* Could be more or less, depending on screen size */
   background-color: rgb(128, 0, 79);
 }
 
-#fetched-pets{
-  display:inline;
+#pet-wraper{
+  display:flex;
+  justify-self: start;
 
 }
 
