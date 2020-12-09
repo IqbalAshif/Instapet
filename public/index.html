@@ -9,6 +9,16 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
+<div id="header">
+  <p class="logged-user-name"> </p>
+  <button id="user-profile" style="display:none;">My Pets</button>
+  <button id="sign-up" style="display:none;">Sign Up</button>
+  <button id="feed-button" style="display:none;">My Feed</button>
+  <button id="regButton">Registration</button>
+  <button id="browseButton">Browse Pets</button>
+  <button class = "log-out-button" id="log-out" style="display:none;">Log out</button>
+</div>
+
 <body>
   <div class="parent" id="main-page">
     <div class="logo">
@@ -24,17 +34,12 @@
         <input type="password" placeholder="Enter Password" name="password" required>
         <button type="submit">Login</button>
       </form>
-
-
-
-      <button id="regButton">Registration</button>
-      <button id="browseButton">Browse Pets</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
     </div>
 
-    <div class="modal" id="myModal">
+    <div class="modal" id="reg-modal">
       <div class="reg-wrapper" id="reg-form">
         <form class="light-border" id="add-user-form" novalidate>
           <span class="close">&times;</span>
@@ -51,21 +56,13 @@
   </div>
 
   <div class="parent" id="feed" style="display: none;">
-    <div id="header">
-      <p class="logged-user-name"> </p>
-      <button id="user-profile" >My Pets</button>
-      <button class = "log-out-button" id="log-out" >Log out</button>
-      <button id="sign-up" >Sign Up</button>
-    </div>
-
     <div id="fetched-pets">
-      <h1>Welcome to the PetWorld!</h1>
+      <h1>Welcome to the Instapet!</h1>
       <hr>
-      <div id="pet-wraper">
-        <!-- js creates pet gallery here -->
+      <div id="pet-list-wraper">
+        <!-- js creates pet gallery here, #pet-wraper is created here -->
       </div>
     </div>
-
     <div class="hide modal" id="image-modal">
       <img src="" alt="">
       <div id="map"></div>
@@ -73,46 +70,33 @@
   </div>
 
   <div class="parent" id="user-page" style="display: none;">
-    <div id="header">
-      <p class="logged-user-name"> </p>
-      <button id="feed-button">My Feed</button>
-      <button class="log-out-button" id="log-out">Log out</button>
-    </div>
-
-    <div class="modal" id="petModal">
-      
-        <form class="light-border" id="add-pet-form" enctype="multipart/form-data" novalidate>
+    <div class="modal" id = "add-pet-modal"> 
+      <form class="light-border" id="add-pet-form" enctype="multipart/form-data" novalidate>
           <span class="close">&times;</span>
           <h2>Add Pet</h2>
-
           <div id = "pet-form-container">
+            
             <div id="profile-pic" class = "formContent">
-              <label for="petImageLable">
-                <input type="file" name="petImg" accept="image/*" style="display:none;" />
-                <img src="css/add_pet.svg" />
-              </label>
+                <label for="uploadFile">
+                  <div id="avatar"></div>
+                </label>
+              <input type="file" name="petImg" id="uploadFile" accept="image/*" style="display:none" />
             </div>
+            
             <div id="pet-form-content" class = "formContent">
               <input class="light-border" type="text" name="pet_type" placeholder="Type" required>
               <input class="light-border" type="text" name="breed" placeholder="Breed" required>
               <input class="light-border" type="text" name="name" placeholder="Name" required>
               <input class="light-border" type="number" name="age" placeholder="Age" required>
               <input class="light-border" type="number" step="0.1" name="weight" placeholder="Weight" required>
-              <input type="number" name="owner" placeholder="OwnerID">
             </div>
-
-            
           </div>
-
-
-
           <button class="light-border" type="submit">Save</button>
         </form>
-      
     </div>
     <button id="add-pet">Add Pet</button>
-
   </div>
+
   <script src="main.js"></script>
   <script src="serialize.js"></script>
 </body>

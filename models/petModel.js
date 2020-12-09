@@ -32,20 +32,19 @@ const addPet = async (req) => {
   try {
     
     const rows = await promisePool.execute(
-      'INSERT INTO pet (pet_type, breed, name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?, ?, ?); ',
+      'INSERT INTO pet (pet_type, breed, name, age, weight, filename) VALUES (?, ?, ?, ?, ?, ?); ',
       [
         req.body.pet_type,
         req.body.breed,
         req.body.name,
         req.body.age,
         req.body.weight,
-        req.body.owner,
         req.file.filename,
       ]
       
     );
     console.log("DATABASE CHECK",rows,insertId);
-    return rows.insertId;
+    return rows[0].insertId;
   }catch(e){
     console.log(req.body);
       return 0;

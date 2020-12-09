@@ -17,8 +17,10 @@ const imageModal = document.querySelector('#image-modal');
 const regForm = document.querySelector('#add-user-form');
 const regBtn = document.querySelector("#regButton");
 const browseBtn = document.querySelector("#browseButton");
-const regModal = document.querySelector("#myModal");
-const span = document.getElementsByClassName("close");
+const myModal = document.querySelector(".modal");
+const regModal = document.querySelector('#reg-modal');
+const addPetModal = document.querySelector('#add-pet-modal');
+const span = document.querySelector(".close");
 const loginForm = document.querySelector('#login-form');
 const userInfo = document.querySelector('.logged-user-name');
 const logOutBtn = document.querySelector('.log-out-button');
@@ -28,27 +30,29 @@ const myFeedBtn = document.querySelector('#feed-button')
 const userProfile = document.querySelector('#user-page');
 const petForm = document.querySelector('#add-pet-form');
 const addPetBtn = document.querySelector('#add-pet');
-const petFormModal = document.querySelector('#petModal');
-const petWraper = document.querySelector('#pet-wraper');
+const petWraper = document.querySelector('#pet-list-wraper');
 
 
 // When the user clicks on the button, open the modal
-regBtn.onclick = function () {
+regBtn.onclick = () => {
   regModal.style.display = "flex";
 }
 
+addPetBtn.onclick = () => {
+  addPetModal.style.display = "flex";
+}
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
+span.onclick = () => {
+  addPetModal.style.display = "none";
   regModal.style.display = "none";
-  petFormModal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == regModal || event.target == petFormModal) {
+window.onclick = (event)=> {
+  if (event.target == addPetModal || event.target == regModal) {
+    addPetModal.style.display = "none";
     regModal.style.display = "none";
-    petFormModal.style.display = "none";
   }
 }
 
@@ -59,14 +63,17 @@ myFeedBtn.onclick = () =>{
 
 
 
-addPetBtn.onclick = () => {
-  petFormModal.style.display = "flex";
-}
-
-
 const getLoginPage = async () => {
   mainPage.style.display = 'flex';
   feed.style.display = 'none';
+  logOutBtn.style.display = 'none';
+  signUpBtn.style.display = 'none';
+  myFeedBtn.style.display = 'none';
+  myProfileBtn.style.display = 'none';
+  userInfo.innerHTML = '';
+  regBtn.style.display = 'block';
+  browseBtn.style.display = 'block';
+
 }
 
 const getProfilePage = async () => {
@@ -77,18 +84,27 @@ const getProfilePage = async () => {
 const authorizedHeader = async (username) => {
   logOutBtn.style.display ='block';
   signUpBtn.style.display = 'none';
+  regBtn.style.display = 'none';
+  browseBtn.style.display = 'none';
   userInfo.innerHTML = `${username}`;
-
 }
 
+const unauthorizedFeedHeader = async => {
+  logOutBtn.style.display = 'none';
+  regBtn.style.display = 'none';
+  signUpBtn.style.display = 'block';
+  browseBtn.style.display = 'none';
+  userInfo.innerHTML = ``;
+}
+
+
 const getFeedPage = async () => {
+  feed.style.display = 'flex'
   mainPage.style.display = 'none';
   userProfile.style.display = 'none';
-  feed.style.display = 'flex'
+  myFeedBtn.style.display = 'none';
   if(sessionStorage.getItem('token') == null){
-    logOutBtn.style.display = 'none';
-    myProfileBtn.style.display ='none';
-    signUpBtn.style.display = 'block';
+    unauthorizedFeedHeader();
   }else{
     
     const options = {
@@ -158,6 +174,11 @@ getFeedPage();
 
 });
 
+signUpBtn.addEventListener('click', async(evt)=>{
+  evt.preventDefault();
+  getLoginPage();
+});
+
 
 
 //My Profile
@@ -173,8 +194,11 @@ myProfileBtn.addEventListener('click', async (evt) => {
       const response = await fetch(url + '/user/1', options);
       const json = await response.json();
       console.log(json);
-      getProfilePage();
       authorizedHeader(json.name);
+      getProfilePage();
+      myFeedBtn.style.display = "block";
+      myProfileBtn.style.display = "none";
+      
     }
     catch (e) {
       console.log(e.message);
@@ -206,10 +230,7 @@ logOutBtn.addEventListener('click', async (evt) => {
 });
 
 
-signUpBtn.addEventListener('click', async(evt)=>{
-  evt.preventDefault();
-  getLoginPage();
-})
+
 
 
 
@@ -220,6 +241,7 @@ const createPetCards = (pets) => {
   pets.forEach((pet) => {
     // create div with DOM methods
     const parent = document.createElement('div');
+    parent.setAttribute("id", "pet-wraper");
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + pet.filename;
     img.alt = pet.name;
@@ -260,7 +282,7 @@ const getPets = async () => {
     const response = await fetch(url + '/pet');
     const pets = await response.json();
     createPetCards(pets);
-    console.log('my pets:', pets);
+    console.log('all pets:', pets);
   }
   catch (e) {
     console.log(e.message);
@@ -271,6 +293,7 @@ const getPets = async () => {
 //Add Pet Form
 petForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
+  try{
   const fd = new FormData(petForm);
   const fetchOptions = {
     method: 'POST',
@@ -282,7 +305,14 @@ petForm.addEventListener('submit', async (evt) => {
   const response = await fetch(url + '/pet', fetchOptions);
   const json = await response.json();
   console.log('add pet response', json);
-  //getPet();
+  addPetModal.style.display = "none";
+  //getMyPets();
+  alert("pet submitted");
+}
+catch(e){
+  alert("pet is not submitted");
+  console.log(e.message);
+}
 });
 
 
