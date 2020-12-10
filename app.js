@@ -7,6 +7,7 @@ const rootRoute = require('./routes/rootRoute.js');
 const userRoute = require('./routes/userRoute.js');
 const petRoute = require('./routes/petRoute.js')
 const authRoute = require ('./routes/authRoute.js')
+const likeRoute = require ('./routes/likeRoute.js')
 const app = express();
 const port = 3000;
 
@@ -23,5 +24,6 @@ app.use('/', rootRoute);
 app.use('/auth', authRoute);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
 app.use('/pet', passport.authenticate('jwt', {session: false}), petRoute);
+app.use('/like', passport.authenticate('jwt', {session: false}), likeRoute);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
