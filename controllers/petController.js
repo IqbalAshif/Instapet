@@ -1,6 +1,7 @@
 'use strict'
+const {makeThumbnail} = require('../utils/resize');
 const petModel = require('../models/petModel');
-const{validtionResult, validationResult} = require('express-validator');
+const{validationResult} = require('express-validator');
 
 const pets = petModel.pets;
 
@@ -15,10 +16,8 @@ const get_pet_by_id = async(req,res) => {
 }
 
 const get_pets_by_user_id = async(req,res) => {
-    
     const pets  = await petModel.getByUserId(req.params.id);
     res.json(pets);
-    console.log('all my pets:', pets);
 }
 
 const pet_create = async (req, res) => {
@@ -49,10 +48,11 @@ const make_thumbnail = async (req, res, next) => {
       const ready = await makeThumbnail({width: 160, height: 160}, req.file.path,
           './thumbnails/' + req.file.filename);
       if (ready) {
-        console.log('make_thumbnail', ready);
+        console.log('RESIZED IMAGE', ready);
         next();
       }
     } catch (e) {
+      console.log('RESIZE IMG ERROR(CONTROLLER)')
       next();
     }
   };

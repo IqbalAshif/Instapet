@@ -7,7 +7,6 @@ const rootRoute = require('./routes/rootRoute');
 const userRoute = require('./routes/userRoute.js');
 const petRoute = require('./routes/petRoute.js');
 const authRoute = require ('./routes/authRoute.js');
-const jwt = require('jsonwebtoken');
 const app = express();
 const port = 3000;
 const cookieParser = require('cookie-parser');
