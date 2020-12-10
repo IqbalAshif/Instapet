@@ -28,11 +28,11 @@ const getPetById = async (id) => {
   }
 };
 
-const getPetsById = async (id) => {
+const getByUserId = async (user_id) => {
   try {
     const rows = await promisePool.execute(
-      'SELECT pet.*, user.name as owner_name FROM pet LEFT JOIN user ON pet.owner = user.user_id WHERE pet.pet_id = ? ',
-      [id]
+      'SELECT pet.*, user.name as owner_name FROM pet LEFT JOIN user ON pet.owner = user.user_id WHERE user.user_id = ? ',
+      [user_id]
     );
     return rows;
   } catch (e) {
@@ -97,7 +97,7 @@ const updatePet = async (req) => {
 module.exports = {
   getAllPets,
   getPetById,
-  getPetsById,
+  getByUserId,
   addPet,
   updatePet,
   deletePet,

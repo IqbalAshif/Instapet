@@ -187,7 +187,7 @@ signUpBtn.addEventListener('click', async(evt)=>{
 });
 
 
-
+//HERE WE NEED TO FETCH PETS
 //My Profile
 myProfileBtn.addEventListener('click', async (evt) => {
   evt.preventDefault();
@@ -200,17 +200,15 @@ myProfileBtn.addEventListener('click', async (evt) => {
           
         },
       };
-      
-      
       const userId = sessionStorage.getItem('user_id');
-      console.log("CHECK FOR USER",userId);
       const response = await fetch(url + '/user/'+ userId, options);
       const json = await response.json();
       authorizedHeader(json.name);
       getProfilePage();
       myFeedBtn.style.display = "block";
       myProfileBtn.style.display = "none";
-      
+
+     // getMyPets();
     }
     catch (e) {
       console.log(e.message);
@@ -300,6 +298,18 @@ const getPets = async () => {
     console.log(e.message);
   }
 };
+
+const getMyPets = async () => {
+  try {
+    const response = await fetch(url + '/pet/my_pets');
+    const myPets = await response.json();
+    //createPetCards(pets);
+    console.log('all my pets:', myPets);
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+}
 
 
 //Add Pet Form
