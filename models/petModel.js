@@ -28,17 +28,30 @@ const getPetById = async (id) => {
   }
 };
 
+const getPetsById = async (id) => {
+  try {
+    const rows = await promisePool.execute(
+      'SELECT pet.*, user.name as owner_name FROM pet LEFT JOIN user ON pet.owner = user.user_id WHERE pet.pet_id = ? ',
+      [id]
+    );
+    return rows;
+  } catch (e) {
+    console.error('petModel: ', e.message);
+  }
+};
+
 const addPet = async (req) => {
   try {
     
     const rows = await promisePool.execute(
-      'INSERT INTO pet (pet_type, breed, name, age, weight, filename) VALUES (?, ?, ?, ?, ?, ?); ',
+      'INSERT INTO pet (pet_type, breed, name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?, ?, ?); ',
       [
         req.body.pet_type,
         req.body.breed,
         req.body.name,
         req.body.age,
         req.body.weight,
+        req.body.owner,
         req.file.filename,
       ]
       
@@ -84,6 +97,7 @@ const updatePet = async (req) => {
 module.exports = {
   getAllPets,
   getPetById,
+  getPetsById,
   addPet,
   updatePet,
   deletePet,

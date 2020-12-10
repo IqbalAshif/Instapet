@@ -14,6 +14,11 @@ const get_pet_by_id = async(req,res) => {
     res.json(pet);
 }
 
+const get_pets_by_id = async(req,res) => {
+    const pets  = await petModel.getPetsById(req.params.id);
+    res.json("ALL MY PETS: ",pets);
+}
+
 const pet_create = async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -53,6 +58,7 @@ const make_thumbnail = async (req, res, next) => {
 module.exports = {
     get_all_pet,
     get_pet_by_id,
+    get_pets_by_id,
     pet_create,
     pet_update,
     pet_delete,

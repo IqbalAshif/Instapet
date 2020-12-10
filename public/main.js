@@ -31,11 +31,14 @@ const userProfile = document.querySelector('#user-page');
 const petForm = document.querySelector('#add-pet-form');
 const addPetBtn = document.querySelector('#add-pet');
 const petWraper = document.querySelector('#pet-list-wraper');
+const addPetUserId = document.querySelector('#pet-add-userId');
 
 
 // When the user clicks on the button, open the modal
 regBtn.onclick = () => {
   regModal.style.display = "flex";
+
+  
 }
 
 addPetBtn.onclick = () => {
@@ -66,6 +69,7 @@ myFeedBtn.onclick = () =>{
 const getLoginPage = async () => {
   mainPage.style.display = 'flex';
   feed.style.display = 'none';
+  userProfile.style.display = 'none';
   logOutBtn.style.display = 'none';
   signUpBtn.style.display = 'none';
   myFeedBtn.style.display = 'none';
@@ -113,7 +117,7 @@ const getFeedPage = async () => {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    const response = await fetch(url + '/user/1', options); //FETCH FROM USER ID
+    const response = await fetch(url + '/user/'+ sessionStorage.getItem('user_id'), options); //FETCH FROM USER ID
     const json = await response.json();
     myProfileBtn.style.display ='block'
     authorizedHeader(json.name);
@@ -140,6 +144,7 @@ regForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('user add response', json);
   sessionStorage.setItem('token', json.token);
+  
 });
 
 // login
@@ -159,6 +164,8 @@ loginForm.addEventListener('submit', async (evt) => {
   if (!json.user) {
     alert(json.message);
   } else {
+  
+    sessionStorage.setItem('user_id', json.user.user_id);
     sessionStorage.setItem('token', json.token);
     getFeedPage();
 
@@ -169,7 +176,7 @@ loginForm.addEventListener('submit', async (evt) => {
 //Browse
 browseBtn.addEventListener('click', async (evt) =>{
 evt.preventDefault();
-sessionStorage.removeItem('token');
+clearSessionStorage();
 getFeedPage();
 
 });
@@ -187,13 +194,18 @@ myProfileBtn.addEventListener('click', async (evt) => {
   
     try {
       const options = {
+        method:"GET",
         headers: {
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          
         },
       };
-      const response = await fetch(url + '/user/1', options);
+      
+      
+      const userId = sessionStorage.getItem('user_id');
+      console.log("CHECK FOR USER",userId);
+      const response = await fetch(url + '/user/'+ userId, options);
       const json = await response.json();
-      console.log(json);
       authorizedHeader(json.name);
       getProfilePage();
       myFeedBtn.style.display = "block";
@@ -219,7 +231,7 @@ logOutBtn.addEventListener('click', async (evt) => {
       const response = await fetch(url + '/auth/logout', options);
       const json = await response.json();
       console.log(json);
-      sessionStorage.removeItem('token');
+      clearSessionStorage();
       alert('You have logged out');
       getLoginPage();
     }
@@ -291,17 +303,21 @@ const getPets = async () => {
 
 
 //Add Pet Form
-petForm.addEventListener('submit', async (evt) => {
+petForm.addEventListener('submit' ,async (evt) => {
   evt.preventDefault();
   try{
+  addPetUserId.value = sessionStorage.getItem('user_id');
   const fd = new FormData(petForm);
   const fetchOptions = {
     method: 'POST',
     headers: {
       'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    
+      
     },
-    body: fd,
+    body: fd, 
   };
+  console.log("ADDING FORM",addPetUserId.value);
   const response = await fetch(url + '/pet', fetchOptions);
   const json = await response.json();
   console.log('add pet response', json);
@@ -314,6 +330,8 @@ catch(e){
   console.log(e.message);
 }
 });
+
+
 
 
 const getUsers = async () => {
@@ -333,6 +351,10 @@ const getUsers = async () => {
   }
 };
 
+const clearSessionStorage = async () => {
+  sessionStorage.removeItem('token');
+  sessionStorage.removeItem('user_id');
+};
 
 
 

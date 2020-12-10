@@ -23,6 +23,7 @@ const injectFile = (req, res, next) => {
     next();
   };
 
+
 router.post('/',
 upload.single('petImg'), 
 petController.make_thumbnail,

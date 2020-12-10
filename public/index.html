@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
+<body>
 <div id="header">
   <p class="logged-user-name"> </p>
   <button id="user-profile" style="display:none;">My Pets</button>
@@ -19,7 +20,7 @@
   <button class = "log-out-button" id="log-out" style="display:none;">Log out</button>
 </div>
 
-<body>
+
   <div class="parent" id="main-page">
     <div class="logo">
       <img src="css/logo.png" alt="logo">
@@ -59,7 +60,7 @@
     <div id="fetched-pets">
       <h1>Welcome to the Instapet!</h1>
       <hr>
-      <div id="pet-list-wraper">
+      <div id="pet-list-wraper" class="petListWraper">
         <!-- js creates pet gallery here, #pet-wraper is created here -->
       </div>
     </div>
@@ -70,6 +71,15 @@
   </div>
 
   <div class="parent" id="user-page" style="display: none;">
+    <h1>My Pets</h1>
+    <hr>
+    <div id="mypets-list-wraper" class="petListWraper">
+      <div id="add-pet-card">
+        <button id="add-pet" class="addButton"></button>
+      </div>
+        <!-- js creates pet gallery here, #pet-wraper is created here -->
+    </div>
+
     <div class="modal" id = "add-pet-modal"> 
       <form class="light-border" id="add-pet-form" enctype="multipart/form-data" novalidate>
           <span class="close">&times;</span>
@@ -89,12 +99,12 @@
               <input class="light-border" type="text" name="name" placeholder="Name" required>
               <input class="light-border" type="number" name="age" placeholder="Age" required>
               <input class="light-border" type="number" step="0.1" name="weight" placeholder="Weight" required>
+              <input id="pet-add-userId" class="light-border" type="number" step="0.1" name="owner" placeholder="Weight" style="display:none" required>
             </div>
           </div>
           <button class="light-border" type="submit">Save</button>
         </form>
     </div>
-    <button id="add-pet">Add Pet</button>
   </div>
 
   <script src="main.js"></script>
