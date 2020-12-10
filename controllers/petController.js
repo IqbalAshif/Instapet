@@ -15,6 +15,7 @@ const get_pet_by_id = async(req,res) => {
 }
 
 const get_pets_by_user_id = async(req,res) => {
+    
     const pets  = await petModel.getByUserId(req.params.id);
     res.json(pets);
     console.log('all my pets:', pets);

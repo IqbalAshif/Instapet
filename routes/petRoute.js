@@ -41,7 +41,7 @@ injectFile,
 petController.pet_create);
 
 router.get('/', petController.get_all_pet);
-router.get('/my_pets', petController.get_pets_by_user_id);
+router.get('/my_pets/:id', petController.get_pets_by_user_id);
 router.get('/:id', petController.get_pet_by_id);
 
 router.put('/', petController.pet_update);

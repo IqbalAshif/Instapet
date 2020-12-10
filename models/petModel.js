@@ -34,7 +34,7 @@ const getByUserId = async (user_id) => {
       'SELECT pet.*, user.name as owner_name FROM pet LEFT JOIN user ON pet.owner = user.user_id WHERE user.user_id = ? ',
       [user_id]
     );
-    return rows;
+    return rows[0];
   } catch (e) {
     console.error('petModel: ', e.message);
   }
