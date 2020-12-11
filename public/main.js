@@ -1,6 +1,6 @@
 'use strict';
 
-const url = ''; // change url when uploading to server
+const url = 'https://10.114.32.93/app'; // change url when uploading to server
 
 // select existing html elements
 
