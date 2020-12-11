@@ -62,10 +62,6 @@ const logout = (req, res) => {
 };
 
 
-
-
-
-
 module.exports = {
   login,
   register,

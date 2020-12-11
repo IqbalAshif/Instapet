@@ -1,21 +1,24 @@
 'use strict';
-
+const passport = require('../utils/pass');
 const express = require('express');
 const router = express.Router();
-const {body} = require('express-validator');
+const { body } = require('express-validator');
 const authController = require('../controllers/authController');
-
 
 router.post('/login', authController.login);
 
 router.get('/logout', authController.logout);
-router.post('/register', authController.register,
-[
-    body('name', 'minimum 3 characters').isLength({min: 3}),
+router.post(
+  '/register',
+  [
+    body('name', 'minimum 3 characters').isLength({ min: 3 }),
     body('username', 'email is not valid').isEmail(),
-    body('password', 'at least one upper case letter').
-    matches('(?=.*[A-Z]).{8,}'),
+    body('password', 'at least one upper case letter').matches(
+      '(?=.*[A-Z]).{8,}'
+    ),
   ],
-  authController.login); 
+  authController.register,
+  authController.login,
+);
 
 module.exports = router;
