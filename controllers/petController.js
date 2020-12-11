@@ -39,7 +39,7 @@ const pet_update = async(req, res) => {
 }
 
 const pet_delete = async(req, res) =>  {
-    const deleteOk = await catModel.deletePet(req.params.id);
+    const deleteOk = await petModel.deletePet(req.params.id);
     res.json(deleteOk);
 }
 

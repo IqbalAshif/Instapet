@@ -9,107 +9,122 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
+
+
 <body>
-<div id="header">
-  <p class="logged-user-name"> </p>
-  <button id="user-profile" style="display:none;">My Profile</button>
-  <button id="sign-up" style="display:none;">Sign Up</button>
-  <button id="feed-button" style="display:none;">My Feed</button>
-  <button id="regButton">Registration</button>
-  <button id="browseButton">Browse Pets</button>
-  <button class = "log-out-button" id="log-out" style="display:none;">Log out</button>
-</div>
+  <div id="background">
+    <img id="bgrd" src="css/background_body.svg" alt="background">
+  </div>
 
 
-  <div class="parent" id="main-page">
-    <div class="logo">
-      <img src="css/logo_main.svg" height="500" width="500" alt="logo">
-    </div>
+  <div id="header">
+    <p class="logged-user-name"> </p>
+    <button id="user-profile" style="display:none;">My Profile</button>
+    <button id="sign-up" style="display:none;">Sign Up</button>
+    <button id="feed-button" style="display:none;">My Feed</button>
+    <button id="regButton">Registration</button>
+    <button id="browseButton">Browse Pets</button>
+    <button class="log-out-button" id="log-out" style="display:none;">Log out</button>
+  </div>
 
-    <div class="loginformcontainer" id="login-wraper">
+  <main>
+    <div class="parent" id="main-page">
+      <div class="logo">
+        <img src="css/logo_main.svg" id="main-logo" alt="logo">
+      </div>
 
-      <form id="login-form" class="light-border" novalidate>
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="username" required>
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
-        <button type="submit">Login</button>
-      </form>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
+      <div class="loginformcontainer" id="login-wraper">
 
-    <div class="modal" id="reg-modal">
-      <div class="reg-wrapper" id="reg-form">
-        <form class="light-border" id="add-user-form" novalidate>
-          <span class="close">&times;</span>
-          <h2>Registration</h2>
-          <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>
-          <input class="light-border" type="email" name="username" placeholder="email" required>
-          <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}" placeholder="Password"
-            required>
-
-          <button class="light-border" type="submit">Register</button>
+        <form id="login-form" class="light-border" novalidate>
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="username" required>
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password" required>
+          <button type="submit">Login</button>
         </form>
       </div>
-    </div>
-  </div>
 
-  <div class="parent" id="feed" style="display: none;">
-    <div id="fetched-pets">
-      <h1>Welcome to the Instapet!</h1>
+      <div class="modal modal1" id="reg-modal">
+        <div class="reg-wrapper" id="reg-form">
+          <form class="light-border" id="add-user-form" novalidate>
+            <span class="close close1">&times;</span>
+            <h2>Registration</h2>
+            <input class="light-border" type="text" name="name" pattern=".{3,}" placeholder="Name" required>
+            <input class="light-border" type="email" name="username" placeholder="email" required>
+            <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
+              placeholder="Password" required>
+
+            <button class="light-border" type="submit">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="parent" id="feed" style="display: none;">
+      <div id="fetched-pets">
+        <h1>Welcome to the Instapet!</h1>
+        <hr>
+        <div id="pet-list-wraper" class="petListWraper">
+          <!-- js creates pet gallery here, #pet-wraper is created here -->
+        </div>
+      </div>
+      <div class="modal modal2" id="image-modal">
+        <div class="loginformcontainer">
+          <span class="close close2">&times;</span>
+          <img src="" alt="" height="200px" width="200px">
+          <input type="text" name="comment" placeholder="YourComment">
+          <button>Like</button>
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parent" id="user-page" style="display: none;">
+      <h1>My Pets</h1>
       <hr>
-      <div id="pet-list-wraper" class="petListWraper">
+
+      <div id="my-pet-list-wraper" class="petListWraper">
+        <div id="add-pet-card">
+          <button id="add-pet" class="addButton"></button>
+        </div>
         <!-- js creates pet gallery here, #pet-wraper is created here -->
       </div>
-    </div>
-    <div class="hide modal" id="image-modal">
-      <img src="" alt="">
-      <div id="map"></div>
-    </div>
-  </div>
 
-  <div class="parent" id="user-page" style="display: none;">
-    <h1>My Pets</h1>
-    <hr>
-    
-    <div id="my-pet-list-wraper" class="petListWraper">
-      <div id="add-pet-card">
-        <button id="add-pet" class="addButton"></button>
-      </div>
-        <!-- js creates pet gallery here, #pet-wraper is created here -->
-    </div>
-
-    <div class="modal" id = "add-pet-modal"> 
-      <form class="light-border" id="add-pet-form" enctype="multipart/form-data" novalidate>
-          <span class="close">&times;</span>
+      <div class="modal modal3" id="add-pet-modal">
+        <form class="light-border" id="add-pet-form" enctype="multipart/form-data" novalidate>
+          <span class="close close3">&times;</span>
           <h2>Add Pet</h2>
-          <div id = "pet-form-container">
-            
-            <div id="profile-pic" class = "formContent">
-                <label for="uploadFile">
-                  <div id="avatar"></div>
-                </label>
+          <div id="pet-form-container">
+
+            <div id="profile-pic" class="formContent">
+              <label for="uploadFile">
+                <div id="avatar"></div>
+              </label>
               <input type="file" name="petImg" id="uploadFile" accept="image/*" style="display:none" />
             </div>
-            
-            <div id="pet-form-content" class = "formContent">
+
+            <div id="pet-form-content" class="formContent">
               <input class="light-border" type="text" name="pet_type" placeholder="Type" required>
               <input class="light-border" type="text" name="breed" placeholder="Breed" required>
               <input class="light-border" type="text" name="name" placeholder="Name" required>
               <input class="light-border" type="number" name="age" placeholder="Age" required>
               <input class="light-border" type="number" step="0.1" name="weight" placeholder="Weight" required>
-              <input id="pet-add-userId" class="light-border" type="number" step="0.1" name="owner" placeholder="Weight" style="display:none" required>
+              <input id="pet-add-userId" class="light-border" type="number" step="0.1" name="owner" placeholder="Weight"
+                style="display:none" required>
             </div>
           </div>
           <button class="light-border" type="submit">Save</button>
         </form>
+      </div>
+
     </div>
-  </div>
+  </main>
 
   <script src="main.js"></script>
   <script src="serialize.js"></script>
+
+
 </body>
+
 
 </html>

@@ -13,7 +13,7 @@ const fileFilter = (req, file, cb) => {
     }
   };
 
-const upload = multer({dest: 'thumbnails/', fileFilter});
+const upload = multer({dest: 'uploads/', fileFilter});
 
 const injectFile = (req, res, next) => {
     if (req.file) {

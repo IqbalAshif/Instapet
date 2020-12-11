@@ -18,10 +18,10 @@ const imageModal = document.querySelector('#image-modal');
 const regForm = document.querySelector('#add-user-form');
 const regBtn = document.querySelector("#regButton");
 const browseBtn = document.querySelector("#browseButton");
-const myModal = document.querySelector(".modal");
+const myModals = document.getElementsByClassName("modal");
 const regModal = document.querySelector('#reg-modal');
 const addPetModal = document.querySelector('#add-pet-modal');
-const span = document.querySelector(".close");
+const spans = document.getElementsByClassName("close");
 const loginForm = document.querySelector('#login-form');
 const userInfo = document.querySelector('.logged-user-name');
 const logOutBtn = document.querySelector('.log-out-button');
@@ -49,16 +49,22 @@ addPetBtn.onclick = () => {
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = () => {
-  addPetModal.style.display = "none";
+Array.from(spans).forEach((span) => {
+  span.addEventListener('click', ()=>{
   regModal.style.display = "none";
-}
+  imageModal.style.display = "none";
+  addPetModal.style.display = "none";
+  })
+});
+  
+
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = (event)=> {
-  if (event.target == addPetModal || event.target == regModal) {
-    addPetModal.style.display = "none";
-    regModal.style.display = "none";
+  if (event.target == regModal || event.target == imageModal|| event.target == addPetModal) {
+    regModal.style.display="none";
+    imageModal.style.display="none";
+    addPetModal.style.display="none";
   }
 }
 
@@ -257,23 +263,47 @@ const createPetCards = (pets, wraper) => {
     // create div with DOM methods
     const parent = document.createElement('div');
     parent.setAttribute("id", "pet-wraper");
+    const imgdiv = document.createElement('div');
+    imgdiv.setAttribute("id", 'pet_userpic_container')
+    parent.appendChild(imgdiv);
     const img = document.createElement('img');
+    img.setAttribute("id", "pet_userpic")
     img.src = url + '/thumbnails/' + pet.filename;
     img.alt = pet.name;
     img.classList.add('resp');
+    const figure = document.createElement('figure').appendChild(img);
+    figure.setAttribute("id", "pet_userpic");
+    imgdiv.appendChild(figure);
 
     const h2 = document.createElement('h2');
     h2.innerHTML = `${pet.name}`;
-    const figure = document.createElement('figure').appendChild(img);
+    
     
     
     parent.appendChild(h2);
-    parent.appendChild(figure);
+    parent.appendChild(imgdiv);
+    
      
     if(wraper==feedPetListWraper){
-      const p = document.createElement('p');
-      p.innerHTML = `Owner: ${pet.ownername}`;
-      parent.appendChild(p);
+      const figcaption = document.createElement('p');
+      figcaption.innerHTML = `Owner: ${pet.ownername}`;
+      parent.appendChild(figcaption);
+      
+        img.addEventListener('click', () => {
+          imageModal.style.display = "flex";
+          imageModal.src = url + '/' + pet.filename;
+          imageModal.alt = pet.name;
+          
+          try {
+            //const coords = JSON.parse(pet.coords);
+            // console.log(coords);
+            //addMarker(coords);
+          }
+          catch (e) {
+          }
+        });
+      
+      
     }else {
       const container = document.createElement('div');
       container.setAttribute("id", "card-button-container");
@@ -286,27 +316,42 @@ const createPetCards = (pets, wraper) => {
       container.appendChild(deleteBtn);
       container.appendChild(modifyBtn);
       parent.appendChild(container);
+
+      deleteBtn.addEventListener('click',async (evt) => {
+        var result = confirm("Want to delete?");
+            if (result) {
+            evt.preventDefault();
+            deletePet(pet);
+            }
+        
+      });
     }
     wraper.appendChild(parent);
     
   });
 };
 
-const openFeedCard = async(img)=>{
-  img.addEventListener('click', () => {
-    imageModal.src = url + '/' + pet.filename;
-    imageModal.alt = pet.name;
-    imageModal.classList.toggle('hide');
-    try {
-      const coords = JSON.parse(pet.coords);
-      // console.log(coords);
-      addMarker(coords);
-    }
-    catch (e) {
-    }
-  });
+//DELETE PET
+const deletePet = async (pet) => {
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  };
+  try {
+    const response = await fetch(url + '/pet/' + pet.pet_id, fetchOptions);
+    const json = await response.json();
+    console.log('delete response', json);
+    getProfilePage();
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
 
-}
+
+
 
 const getPets = async () => {
   try {
@@ -385,6 +430,10 @@ const clearSessionStorage = async () => {
   sessionStorage.removeItem('token');
   sessionStorage.removeItem('user_id');
 };
+
+
+
+
 
 
 
