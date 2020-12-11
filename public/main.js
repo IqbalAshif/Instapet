@@ -1,16 +1,8 @@
 'use strict';
 
-
-
-
-
-const url = 'https://localhost:8000'; // change url when uploading to server
-
-
-
+const url = '127.0.0.1'; // change url when uploading to server
 
 // select existing html elements
-
 
 const mainPage = document.querySelector('#main-page');
 const feed = document.querySelector('#feed');
