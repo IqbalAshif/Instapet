@@ -4,7 +4,7 @@
 
 
 
-const url = '10.114.32.93/app'; // change url when uploading to server
+const url = '10.114.32.93'; // change url when uploading to server
 
 
 
