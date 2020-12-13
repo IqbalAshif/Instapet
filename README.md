@@ -1,5 +1,6 @@
 # Instapet
 Group project for Basic Concepts of Web Technology
+
 Instagram for Pets
 
 Routes
@@ -22,7 +23,7 @@ GET /pet/:id
 
 PUT /pet/ 
     update pet
-    
+
 DELETE (pet/:id)
     delete pet
 
